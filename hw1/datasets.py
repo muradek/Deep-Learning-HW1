@@ -9,6 +9,7 @@ def random_labelled_image(
     shape: Tuple[int, ...], num_classes: int, low=0, high=255, dtype=torch.int,
 ) -> Tuple[Tensor, int]:
     """
+    # bla bla
     Generates a random image and a random class label for it.
     :param shape: The shape of the generated image e.g. (C, H, W).
     :param num_classes: Number of classes. The label should be in [0, num_classes-1].
