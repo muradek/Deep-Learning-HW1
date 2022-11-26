@@ -2,6 +2,7 @@ data/
 checkpoints/
 **/results/monitor/
 
+.ipynb_checkpoints/
 cs236781/
 README.md
 environment.yml
