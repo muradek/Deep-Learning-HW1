@@ -2,6 +2,7 @@ data/
 checkpoints/
 **/results/monitor/
 
+cs236781/
 README.md
 environment.yml
 jupyter-lab.sh
