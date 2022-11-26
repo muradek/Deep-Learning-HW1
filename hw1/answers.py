@@ -10,7 +10,26 @@ math (delimited with $$).
 
 part1_q1 = r"""
 **Your answer:**
+1. False. 
+in-sample error is the error rate we get on the same data set we used to build our predictor.
+the dataset is a subset of the dataset that was not used to build the model, hence it estimates the out of sample error. 
 
+2. False.
+for example, given a data with two labels (dogs and cats), we can split the data to two disjoint subsets where each 
+subset has samples of a specific label (i.e train set = all samples labeled cats, test set = all samples labeled dogs).  
+As each sample is uniquely labeled, those are disjoint subsets. the model would probably label everything as cats unlike
+a model based on subsets that consist of samples with label distribution which is equal to the data set distribution. 
+
+3. True. 
+This question is ambiguous as the definitions of "test set" and "using" vary in different sources.
+To answer clearly, we'll first present our terminology:
+In CV we first allocate a subset of the dataset to be test set. We then use cross validation on the *rest of the dataset
+(*excluding the test set). At this part we name the new subsets "training set" and "validation set". 
+So, in the training process of the CV routine, we repeatedly use different training and validation sets, but not the 
+test set. Finally, after the training process we use the test set to estimate our models out os sample error. 
+
+4. False.
+Following the logic and terminology presented above, the test set is used to estimate our generalization error.  
 
 Write your answer using **markdown** and $\LaTeX$:
 ```python
@@ -23,6 +42,9 @@ An equation: $e^{i\pi} -1 = 0$
 
 part1_q2 = r"""
 **Your answer:**
+His approach of adding an L2 regularization term to the loss function is justified as it minimizes chances of 
+overfitting model due to overinflated weights. However, as a hyperparameter, the regularization rate \lambda should not
+be determined by the test set, but optimized by the training process based on the training and validation set.
 
 
 Write your answer using **markdown** and $\LaTeX$:
