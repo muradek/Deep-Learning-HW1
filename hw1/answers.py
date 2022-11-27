@@ -46,7 +46,6 @@ His approach of adding an L2 regularization term to the loss function is justifi
 overfitting model due to overinflated weights. However, as a hyperparameter, the regularization rate \lambda should not
 be determined by the test set, but optimized by the training process based on the training and validation set.
 
-
 Write your answer using **markdown** and $\LaTeX$:
 ```python
 # A code block

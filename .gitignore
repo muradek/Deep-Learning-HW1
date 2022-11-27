@@ -2,6 +2,19 @@ data/
 checkpoints/
 **/results/monitor/
 
+.ipynb_checkpoints/
+cs236781/
+README.md
+environment.yml
+jupyter-lab.sh
+main.py
+Part0_Intro.ipynb
+Part1_Datasets.ipynb
+Part2_KNN.ipynb
+Part3_LinearClassifier.ipynb
+Part4_LinearRegression.ipynb
+py-sbatch.sh
+
 # Created by https://www.gitignore.io/api/python,pycharm,windows,osx,linux
 
 ### Linux ###
