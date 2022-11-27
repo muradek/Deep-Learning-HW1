@@ -33,9 +33,14 @@ class KNNClassifier(object):
         # ====== YOUR CODE: ======
         data_iter = iter(dl_train)
         (x_train, y_train) = data_iter.next()
+        # print("debug: first_sample size is: ", x_train.shape)
         for idx, (sample, label) in enumerate(dl_train):
+            # print(idx) # debug
             torch.cat((x_train, sample), dim=0)
             torch.cat((y_train, label), dim=0)
+            # if idx%100 == 0: #debug
+            #     print(idx, "debug: curr size of samples: ", x_train.shape)
+            #     print(idx, "debug: curr size of labels: ", y_train.shape)
         labels = torch.unique(y_train)
         n_classes = labels.size(dim=0)
         # ========================
@@ -171,7 +176,40 @@ def find_best_k(ds_train: Dataset, k_choices, num_folds):
         #  random split each iteration), or implement something else.
 
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        fold_size = len(ds_train)//num_folds
+        k_acc_list = []
+        for folds_iter in range(num_folds):
+            validation_start = folds_iter*fold_size
+            validation_end = (folds_iter+1)*fold_size-1
+            validation_indices = torch.arange(validation_start, validation_end)
+            train_indices = torch.cat(
+                (torch.arange(0, validation_start), torch.arange(validation_end, len(ds_train))),
+                dim=0)
+
+            # creating samplers for the dataloaders based on the indices, check the random!!
+            validation_sampler = torch.utils.data.SubsetRandomSampler(validation_indices)
+            train_sampler = torch.utils.data.SubsetRandomSampler(train_indices)
+
+            # creating the dataloaders, check batch size!!
+            dl_valid = torch.utils.data.DataLoader(
+                dataset=ds_train, batch_size=fold_size, shuffle=False, sampler=validation_sampler)
+            dl_train = torch.utils.data.DataLoader(
+                dataset=ds_train, batch_size=fold_size, shuffle=False, sampler=train_sampler)
+
+            # training the model
+            model.train(dl_train)
+
+            # creating the validation tensor for predict()
+            # and the validation prediction for accuracy()
+            valid_iter = iter(dl_valid)
+            (valid_samples_set, valid_labels_set) = valid_iter.next()
+            for idx, (sample, label) in enumerate(dl_valid):
+                torch.cat((valid_samples_set, sample), dim=0)
+                torch.cat((valid_labels_set, label), dim=0)
+
+            valid_pred = model.predict(valid_samples_set)
+            k_acc_list.append(accuracy(valid_labels_set, valid_pred))
+        accuracies.append(k_acc_list)
         # ========================
 
     best_k_idx = np.argmax([np.mean(acc) for acc in accuracies])
