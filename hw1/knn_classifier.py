@@ -31,7 +31,13 @@ class KNNClassifier(object):
         #     y_train.
         #  2. Save the number of classes as n_classes.
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        data_iter = iter(dl_train)
+        (x_train, y_train) = data_iter.next()
+        for idx, (sample, label) in enumerate(dl_train):
+            torch.cat((x_train, sample), dim=0)
+            torch.cat((y_train, label), dim=0)
+        labels = torch.unique(y_train)
+        n_classes = labels.size(dim=0)
         # ========================
 
         self.x_train = x_train
@@ -63,7 +69,10 @@ class KNNClassifier(object):
             #  - Set y_pred[i] to the most common class among them
             #  - Don't use an explicit loop.
             # ====== YOUR CODE: ======
-            raise NotImplementedError()
+            # chose smallest k values from the i'th *col*
+            res, indices = dist_matrix[:,i].topk(self.k, largest=False)
+            top_k_labels = self.y_train[indices]
+            y_pred[i], garbage_val = top_k_labels.mode() # returns tuple of (val,ind)
             # ========================
 
         return y_pred
@@ -91,7 +100,27 @@ def l2_dist(x1: Tensor, x2: Tensor):
 
     dists = None
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+    N1 = x1.size(dim=0)
+    N2 = x2.size(dim=0)
+
+    # (a-b)^2 = a^2 - 2ab + b^2
+    a_squared = x1*x1 # a_squared is now (N1,d). we want it to be (N1,1)
+    a_squared = torch.sum(a_squared, dim=1) # now (1,N1)
+    a_squared = torch.reshape(a_squared, (N1, 1)) # now (N1,1)
+
+    b_squared = x2*x2 # (N2,d)
+    b_squared = torch.sum(b_squared, dim=1)  # now (1,N2)
+    # b_squared = torch.reshape(b_squared, (N2, 1))
+    # b_squared = torch.transpose(b_squared, 0, 1)
+
+    # two_ab should be (N1,N2)
+    x2_t = torch.transpose(x2, 0, 1)
+    two_ab = 2 * torch.matmul(x1, x2_t)
+
+    # combining all
+    dists = a_squared - two_ab
+    dists += b_squared
+    dists = torch.sqrt(dists)
     # ========================
 
     return dists
@@ -111,7 +140,7 @@ def accuracy(y: Tensor, y_pred: Tensor):
     # TODO: Calculate prediction accuracy. Don't use an explicit loop.
     accuracy = None
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+    accuracy = torch.sum(y==y_pred) / y.size(dim=0)
     # ========================
 
     return accuracy
