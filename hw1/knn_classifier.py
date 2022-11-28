@@ -180,7 +180,7 @@ def find_best_k(ds_train: Dataset, k_choices, num_folds):
         k_acc_list = []
         for folds_iter in range(num_folds):
             validation_start = folds_iter*fold_size
-            validation_end = (folds_iter+1)*fold_size-1
+            validation_end = (folds_iter+1)*fold_size
             validation_indices = torch.arange(validation_start, validation_end)
             train_indices = torch.cat(
                 (torch.arange(0, validation_start), torch.arange(validation_end, len(ds_train))),

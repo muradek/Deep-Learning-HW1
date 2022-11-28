@@ -60,7 +60,11 @@ An equation: $e^{i\pi} -1 = 0$
 
 part2_q1 = r"""
 **Your answer:**
-
+In our model, increasing the values of k does not improve generalization for unseen data (k=1 got the highes accuracy). 
+We assume that theres high variability of the samples representation, such that for a test sample, 
+it is likely to find a training sample that is very close (low l2 dist), so for k=1 we'll get a more accurate decision.
+But, the larger k we use, we get more false labels in our top-k (since the l2 dist between wrong labels with similar 
+representation is close to that of a right label with "far" representation), which leads to lower accuracy.
 
 Write your answer using **markdown** and $\LaTeX$:
 ```python
@@ -73,6 +77,13 @@ An equation: $e^{i\pi} -1 = 0$
 
 part2_q2 = r"""
 **Your answer:**
+1. k-fold CV is better than Training on the entire train-set with various models and selecting the best model w.r.t 
+train-set accuracy in the *sense of model's ability to generalize its performance to an unseen data*. In a more 
+"extreme" manner, in the CV method we decrease the chances of overfitting compared to the suggested method.    
+
+2. In this case, the suggested method is again increasing the risk of overfitting, just this time it iss overfitting
+to the test set. In a sense, thie means our model will underfit to the training set. Usually this will lead
+to a "bad" model as the training set is usually bigger and "better distributed" than the test set.   
 
 
 Write your answer using **markdown** and $\LaTeX$:
