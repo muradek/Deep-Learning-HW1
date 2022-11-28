@@ -33,14 +33,11 @@ class KNNClassifier(object):
         # ====== YOUR CODE: ======
         data_iter = iter(dl_train)
         (x_train, y_train) = data_iter.next()
-        # print("debug: first_sample size is: ", x_train.shape)
+
         for idx, (sample, label) in enumerate(dl_train):
-            # print(idx) # debug
-            torch.cat((x_train, sample), dim=0)
-            torch.cat((y_train, label), dim=0)
-            # if idx%100 == 0: #debug
-            #     print(idx, "debug: curr size of samples: ", x_train.shape)
-            #     print(idx, "debug: curr size of labels: ", y_train.shape)
+            x_train = torch.cat((x_train, sample), dim=0)
+            y_train = torch.cat((y_train, label), dim=0)
+
         labels = torch.unique(y_train)
         n_classes = labels.size(dim=0)
         # ========================
