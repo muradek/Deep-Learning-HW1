@@ -60,8 +60,9 @@ An equation: $e^{i\pi} -1 = 0$
 
 part2_q1 = r"""
 **Your answer:**
-In our model, increasing the values of k does not improve generalization for unseen data (k=1 got the highes accuracy). 
-We assume that theres high variability of the samples representation, such that for a test sample, 
+In our model, increasing the values of k does not improve generalization for unseen data. 
+In our model, k=1 mostly had the highest accuracy, followed by k=3 that somtimes even slightly surpassed k=1.  
+We assume that theres high variability of the samples representations, such that for a test sample, 
 it is likely to find a training sample that is very close (low l2 dist), so for k=1 we'll get a more accurate decision.
 But, the larger k we use, we get more false labels in our top-k (since the l2 dist between wrong labels with similar 
 representation is close to that of a right label with "far" representation), which leads to lower accuracy.
