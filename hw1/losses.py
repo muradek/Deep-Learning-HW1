@@ -52,7 +52,16 @@ class SVMHingeLoss(ClassifierLoss):
 
         loss = None
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+
+        m = x_scores
+        ground_label_scores = x_scores[range(x_scores.shape[0]), y]
+        ground_label_scores = torch.reshape(ground_label_scores, (ground_label_scores.shape[0], -1))
+        m = m - ground_label_scores
+        m = m + self.delta
+        m = torch.where(m > 0, m, torch.zeros_like(m))
+        loss = (torch.sum(m) - (x_scores.shape[0]*self.delta))/x_scores.shape[0]
+        return loss
+
         # ========================
 
         # TODO: Save what you need for gradient calculation in self.grad_ctx
