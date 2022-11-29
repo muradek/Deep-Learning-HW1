@@ -23,7 +23,11 @@ class LinearClassifier(object):
 
         self.weights = None
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        self.weights = torch.normal(mean=0.0, std=weight_std, size=(n_features, n_classes))
+
+        # TODO: -why normally distributed?
+        #       -check that bias is counted in n_features
+        # raise NotImplementedError()
         # ========================
 
     def predict(self, x: Tensor):
@@ -45,7 +49,13 @@ class LinearClassifier(object):
 
         y_pred, class_scores = None, None
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        class_scores = torch.matmul(x, self.weights)
+        y_pred = torch.argmax(torch.abs(class_scores), dim=1)
+
+        # TODO: -check if predictions should be based off absolute value of scores or not
+        #       -
+
+        # raise NotImplementedError()
         # ========================
 
         return y_pred, class_scores
@@ -66,7 +76,11 @@ class LinearClassifier(object):
 
         acc = None
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+
+        # TODO: -remove prints
+        acc = (torch.sum(y == y_pred))/(y.shape[0])
+
+        # raise NotImplementedError()
         # ========================
 
         return acc * 100
