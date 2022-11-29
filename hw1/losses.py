@@ -52,9 +52,6 @@ class SVMHingeLoss(ClassifierLoss):
 
         loss = None
         # ====== YOUR CODE: ======
-
-        #test 1 2
-
         raise NotImplementedError()
         # ========================
 
