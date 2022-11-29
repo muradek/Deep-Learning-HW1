@@ -1,3 +1,4 @@
+import numpy
 import numpy as np
 import sklearn
 from pandas import DataFrame
@@ -32,7 +33,7 @@ class LinearRegressor(BaseEstimator, RegressorMixin):
 
         y_pred = None
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        y_pred = numpy.matmul(numpy.transpose(self.weights_), X) #bias?
         # ========================
 
         return y_pred
@@ -51,7 +52,8 @@ class LinearRegressor(BaseEstimator, RegressorMixin):
 
         w_opt = None
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        # loss func =
+        derivative = ...
         # ========================
 
         self.weights_ = w_opt
@@ -100,7 +102,9 @@ class BiasTrickTransformer(BaseEstimator, TransformerMixin):
 
         xb = None
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        N,D = X.shape
+        ones_vec = numpy.ones((N,1))
+        xb = numpy.hstack((ones_vec, X))
         # ========================
 
         return xb
@@ -163,7 +167,10 @@ def top_correlated_features(df: DataFrame, target_feature, n=5):
     # TODO: Calculate correlations with target and sort features by it
 
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+    corr = df.corr()[[target_feature]].sort_values(by=target_feature, key=abs, ascending=False)
+    top_n_features = list(corr.index)[1:n+1]
+    top_n_corr = (corr.iloc[:, 0].values)[1:n+1]
+
     # ========================
 
     return top_n_features, top_n_corr
@@ -179,7 +186,7 @@ def mse_score(y: np.ndarray, y_pred: np.ndarray):
 
     # TODO: Implement MSE using numpy.
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+    mse = np.mean(np.square((y-y_pred)))
     # ========================
     return mse
 
@@ -194,7 +201,9 @@ def r2_score(y: np.ndarray, y_pred: np.ndarray):
 
     # TODO: Implement R^2 using numpy.
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+    Numerator = np.sum(np.square(y-y_pred))
+    denominator = np.sum(np.square(y-np.mean(y)))
+    r2 = 1 - Numerator/denominator
     # ========================
     return r2
 
