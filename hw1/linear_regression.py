@@ -33,7 +33,7 @@ class LinearRegressor(BaseEstimator, RegressorMixin):
 
         y_pred = None
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        y_pred = numpy.matmul(numpy.transpose(self.weights_), X) #bias?
         # ========================
 
         return y_pred
@@ -52,7 +52,8 @@ class LinearRegressor(BaseEstimator, RegressorMixin):
 
         w_opt = None
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        # loss func =
+        derivative = ...
         # ========================
 
         self.weights_ = w_opt
