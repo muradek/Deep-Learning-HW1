@@ -76,11 +76,7 @@ class LinearClassifier(object):
 
         acc = None
         # ====== YOUR CODE: ======
-
-        # TODO: -remove prints
         acc = (torch.sum(y == y_pred))/(y.shape[0])
-
-        # raise NotImplementedError()
         # ========================
 
         return acc * 100
