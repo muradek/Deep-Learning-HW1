@@ -104,6 +104,12 @@ An equation: $e^{i\pi} -1 = 0$
 part3_q1 = r"""
 **Your answer:**
 
+The selection of $\delta > 0$ is arbitrary for the SVM loss function because delta the hyper-parameter representing the\
+margin for score difference between the true and all other classes can be directly effected by the hyper-paramater \
+$\lambda$. $\lambda$ the "weights decay"\regularization parameter controls the magnitude of the weights so as we limit \
+this magnitude we are also limiting the difference in scores between the classes $\delta$. Therefore, we can safely set\
+ $\delta$ arbitrarily and have $\lamda$ compensate. The two hyper-parameters control the same tradeoff and controlling \
+the weights magnitude may prove to be more convenient in some cases.     
 
 Write your answer using **markdown** and $\LaTeX$:
 ```python

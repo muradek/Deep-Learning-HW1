@@ -49,8 +49,7 @@ class LinearClassifier(object):
         y_pred, class_scores = None, None
         # ====== YOUR CODE: ======
         class_scores = torch.matmul(x, self.weights)
-        y_pred = torch.argmax(torch.abs(class_scores), dim=1)
-        # y_pred = torch.argmax(class_scores, dim=1)
+        y_pred = torch.argmax(class_scores, dim=1)
 
         # TODO: -check if predictions should be based off absolute value of scores or not
 
@@ -164,7 +163,11 @@ class LinearClassifier(object):
         #  The output shape should be (n_classes, C, H, W).
 
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        w_images = self.weights.T
+        if has_bias:
+            w_images = w_images[:, 1:]
+        w_images = w_images.reshape((w_images.shape[0], ) + img_shape)
+        # raise NotImplementedError()
         # ========================
 
         return w_images
@@ -177,9 +180,9 @@ def hyperparams():
     #  Manually tune the hyperparameters to get the training accuracy test
     #  to pass.
     # ====== YOUR CODE: ======
-    hp['weight_std'] = .01
-    hp['learn_rate'] = .01
-    hp['weight_decay'] = .1
+    hp['weight_std'] = .001
+    hp['learn_rate'] = .015
+    hp['weight_decay'] = .03
     # raise NotImplementedError()
     # ========================
 
