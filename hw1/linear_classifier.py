@@ -27,7 +27,6 @@ class LinearClassifier(object):
 
         # TODO: -why normally distributed?
         #       -check that bias is counted in n_features
-        # raise NotImplementedError()
         # ========================
 
     def predict(self, x: Tensor):
@@ -51,9 +50,9 @@ class LinearClassifier(object):
         # ====== YOUR CODE: ======
         class_scores = torch.matmul(x, self.weights)
         y_pred = torch.argmax(torch.abs(class_scores), dim=1)
+        # y_pred = torch.argmax(class_scores, dim=1)
 
         # TODO: -check if predictions should be based off absolute value of scores or not
-        #       -
 
         # raise NotImplementedError()
         # ========================
@@ -112,7 +111,39 @@ class LinearClassifier(object):
             #     using the weight_decay parameter.
 
             # ====== YOUR CODE: ======
-            raise NotImplementedError()
+
+            # declare an empy gradient tensor to calculate the average gradient per epoch
+            gradient = torch.zeros((self.n_features, self.n_classes))
+
+            # loop over all samples (x) and all ground labels (y) in the training dataset
+            for x, y in dl_train:
+                y_pred, class_scores = self.predict(x)
+                average_loss += (loss_fn.loss(x, y, class_scores, y_pred)
+                                 + (weight_decay/2)*float(torch.norm(self.weights)))
+                total_correct += self.evaluate_accuracy(y, y_pred)
+                gradient += loss_fn.grad()
+
+            # update relevant training fields for this epoch
+            gradient = gradient/len(dl_train) + weight_decay*self.weights
+            self.weights -= learn_rate*gradient
+            train_res.loss.append(average_loss / len(dl_train))
+            train_res.accuracy.append(total_correct / len(dl_train))
+
+            # reset values of elements to be reused on validate data set
+            total_correct = 0
+            average_loss = 0
+
+            for x, y in dl_valid:
+                y_pred, class_scores = self.predict(x)
+                average_loss += (loss_fn.loss(x, y, class_scores, y_pred)
+                                 + (weight_decay/2)*float(torch.norm(self.weights)))
+                total_correct += self.evaluate_accuracy(y, y_pred)
+
+            # update relevant validation fields for this epoch
+            valid_res.loss.append(average_loss / len(dl_valid))
+            valid_res.accuracy.append(total_correct / len(dl_valid))
+
+            # raise NotImplementedError()
             # ========================
             print(".", end="")
 
@@ -146,7 +177,10 @@ def hyperparams():
     #  Manually tune the hyperparameters to get the training accuracy test
     #  to pass.
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+    hp['weight_std'] = .01
+    hp['learn_rate'] = .01
+    hp['weight_decay'] = .1
+    # raise NotImplementedError()
     # ========================
 
     return hp
