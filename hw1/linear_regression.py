@@ -33,7 +33,7 @@ class LinearRegressor(BaseEstimator, RegressorMixin):
 
         y_pred = None
         # ====== YOUR CODE: ======
-        y_pred = numpy.matmul(numpy.transpose(self.weights_), X) #bias?
+        y_pred = numpy.matmul(X, self.weights_) #bias?
         # ========================
 
         return y_pred
@@ -52,8 +52,13 @@ class LinearRegressor(BaseEstimator, RegressorMixin):
 
         w_opt = None
         # ====== YOUR CODE: ======
-        # loss func =
-        derivative = ...
+        # w_opt = ((X_t*X - lambda*I)^(-1))*(X_t*Y)
+        X_t = numpy.transpose(X)
+        lambda_reg = (self.reg_lambda*len(y)) * numpy.identity(X.shape[1])
+        lambda_reg[0,0] = 0
+        first_mat = numpy.linalg.inv(numpy.matmul(X_t, X) + lambda_reg)
+        sec_mat = numpy.matmul(X_t, y)
+        w_opt = numpy.matmul(first_mat, sec_mat)
         # ========================
 
         self.weights_ = w_opt
@@ -79,7 +84,12 @@ def fit_predict_dataframe(
     """
     # TODO: Implement according to the docstring description.
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+    if feature_names is None:
+        X = df.loc[:, df.columns != target_name]
+    else:
+        X = df[feature_names]
+    y = df[target_name]
+    y_pred = model.fit_predict(X,y)
     # ========================
     return y_pred
 
@@ -121,7 +131,7 @@ class BostonFeaturesTransformer(BaseEstimator, TransformerMixin):
         # TODO: Your custom initialization, if needed
         # Add any hyperparameters you need and save them as above
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+
         # ========================
 
     def fit(self, X, y=None):
@@ -143,7 +153,8 @@ class BostonFeaturesTransformer(BaseEstimator, TransformerMixin):
 
         X_transformed = None
         # ====== YOUR CODE: ======
-        raise NotImplementedError()
+        poly = sklearn.preprocessing.PolynomialFeatures(degree=self.degree)
+        X_transformed = poly.fit_transform(X)
         # ========================
 
         return X_transformed
