@@ -109,7 +109,7 @@ margin for score difference between the true and all other classes can be direct
 $\lambda$. $\lambda$ the "weights decay"\regularization parameter controls the magnitude of the weights so as we limit \
 this magnitude we are also limiting the difference in scores between the classes $\delta$. Therefore, we can safely set\
  $\delta$ arbitrarily and have $\lamda$ compensate. The two hyper-parameters control the same tradeoff and controlling \
-the weights magnitude may prove to be more convenient in some cases.     
+the weights magnitude may prove to be more convenient in some cases.      
 
 Write your answer using **markdown** and $\LaTeX$:
 ```python

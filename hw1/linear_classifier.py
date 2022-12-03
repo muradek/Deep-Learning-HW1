@@ -51,8 +51,6 @@ class LinearClassifier(object):
         class_scores = torch.matmul(x, self.weights)
         y_pred = torch.argmax(class_scores, dim=1)
 
-        # TODO: -check if predictions should be based off absolute value of scores or not
-
         # raise NotImplementedError()
         # ========================
 
