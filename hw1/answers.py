@@ -104,45 +104,46 @@ An equation: $e^{i\pi} -1 = 0$
 part3_q1 = r"""
 **Your answer:**
 
-The selection of $\delta > 0$ is arbitrary for the SVM loss function because delta the hyper-parameter representing the\
+The selection of $\Delta > 0$ is arbitrary for the SVM loss function because delta the hyper-parameter representing the\
 margin for score difference between the true and all other classes can be directly effected by the hyper-paramater \
-$\lambda$. $\lambda$ the "weights decay"\regularization parameter controls the magnitude of the weights so as we limit \
-this magnitude we are also limiting the difference in scores between the classes $\delta$. Therefore, we can safely set\
- $\delta$ arbitrarily and have $\lamda$ compensate. The two hyper-parameters control the same tradeoff and controlling \
+$\lambda$. The "weights decay"\regularization  $\lambda$ parameter controls the magnitude of the weights so as we limit \
+this magnitude we are also limiting the difference in scores between the classes $\Delta$. Therefore, we can safely set\
+$\Delta$ arbitrarily and have $\lambda$ compensate. The two hyper-parameters control the same tradeoff and controlling \
 the weights magnitude may prove to be more convenient in some cases.      
-
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
 
 """
 
 part3_q2 = r"""
 **Your answer:**
 
+**2.1:** When viewing the images we can roughly see the outlines of the digit characters. We can assume the classifier \
+is learning the pixels and where they are white or black. Ultimately giving the sample a score based of how close it is\
+to each class\digit. The classifier learn the features which are the pixels and gives a specific weight to each one and\
+based off how often this pixel was white in the training set. The classification errors may be explained by the several\
+factors like, how there are different styles to write each digit, how some digits are similar, how the training samples\
+are not all the same size, centered or aligned the same.  For example we can see how the digit 4 was mistaken for 9 due\
+to an elongated stroke.
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+**2.2:** This interpretation is similar to KNN in that we predict the samples class by choosing the class that produced\
+a maximum score and that score is given by the weights matrix that we compute. We can regard this as a sort of \
+measurement of norm or distance from the different class options. It is different in that we use a different method of \
+measurement and also we are not doing a multiple comparison to K samples from each class. We are simply comparing the \
+best fit to each one of the C classes. This also reduces our memory stamp greatly. 
 
 """
 
 part3_q3 = r"""
 **Your answer:**
 
+**3.1** We think that the learning rate we choose is good. We can see how in the first 5 or so epochs the accuracy \
+function has a general trend of improvement btu with local falls. This is an important element because we want to avoid\
+local minimals. The accuracy graph begins to flattens out after epoch 5 thus showing some sort of convergence to a \ 
+minimum this is important because if we were to choose a learning rate to large we might always "bounce" in and out of \ 
+minimums. On the other hand we can notice that our step if large enough to actualy reach a minimum, choosing too small \
+of a step would most likely cause the model to not reach adequate results.
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+**3.2** Based off the graph we can concur that the model is slightly overfitted to the training set. By examining the \
+graph we can notice that the accuracy of the training set is better then that of the validation set by a small margin.
 
 """
 
