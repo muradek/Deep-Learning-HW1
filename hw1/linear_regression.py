@@ -247,7 +247,17 @@ def cv_best_hyperparams(
     #  - You can use MSE or R^2 as a score.
 
     # ====== YOUR CODE: ======
-    raise NotImplementedError()
+    # using sklearn built in methods to find best params based on the r2 scoring
+    from sklearn.model_selection import GridSearchCV
+
+    parameters = model.get_params()
+    degree_param = [param for param in parameters if "degree" in param][0]
+    lambda_param = [param for param in parameters if "lambda" in param][0]
+    final_parameters = {degree_param: degree_range, lambda_param: lambda_range}
+
+    res = GridSearchCV(model, param_grid=final_parameters, cv= k_folds, scoring= 'r2')
+    res.fit(X,y)
+    best_params = res.best_params_
     # ========================
 
     return best_params
