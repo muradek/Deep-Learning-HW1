@@ -153,7 +153,19 @@ An equation: $e^{i\pi} -1 = 0$
 
 part4_q1 = r"""
 **Your answer:**
+There are several factors that make an ideal pattern in a residual plot 
+1. Obviously, as we want to minimise our error, we would like to see a residual plot with a low loss values/avg.
+(closest to zero).
+2. In a residual plot where we split the dataset to train and test set, we would like to see a similarly distributed 
+residual for the two subsets, so we know our model is able to generalize its performance and it is not overfitting to 
+one of the subsets.
+3. we would like to see a linear horizontal residual pattern so we know that the models performance is "equally good" 
+for all values. Which means, we want to avoid the case where our model is very good (=small residual) for some values, 
+yet very bad (=large residual) for other values.  
 
+comparing the final model (after cv) to the one with the top 5 features, we see that the final model is better in all
+three metrics described above. Thus, we infer that the final model is a better model for our purpose and under out
+metrics. 
 
 Write your answer using **markdown** and $\LaTeX$:
 ```python
@@ -167,6 +179,23 @@ An equation: $e^{i\pi} -1 = 0$
 part4_q2 = r"""
 **Your answer:**
 
+Adding non-linear features to our model can be seen as projecting our samples from one space to another, 
+s.t in the new space we can linearly separate our samples better than previous space enabled us. 
+
+1. Yes, it is still a *linear* regressor, as the final classifier is still a linear function. (We did not change the
+hypotheses space)   
+
+2. The question is a bit ambiguous, so to be on the safe side we we'll answer both meanings. 
+a. if the question is whether we can apply any non linear function on the features to create new features for our
+linear regressor, than the answer is yes. any function that will generate a new feature will work (although not
+necessarily improve the model).
+b. if the question is whether we can "predict" (/imitate) any non-linear function with our linear regressor (using the 
+ability to create "non linear" features) than the answer is yes although in many cases it would demand a lot of
+calculations or a preliminary knowledge about our data.
+
+3. In the new space, the classifier would be a hyperplane. BUT looking at the original we might get boundaries that are
+more complicated than just a hyperplane. for example, we could get a sphere, or multiple hyperplanes that separates
+our original space.     
 
 Write your answer using **markdown** and $\LaTeX$:
 ```python
@@ -180,6 +209,12 @@ An equation: $e^{i\pi} -1 = 0$
 part4_q3 = r"""
 **Your answer:**
 
+1. logspace enables us to examine different magnitudes for our lambda hyperparameter within a shorter time than the 
+linspace wouldve provided us. This enables us to find a better value faster. 
+
+2. The cv process has a k-folds iterations. denoting A as the number of values for lambda and B as the number of values 
+for the degree, we get that the model was fitted (k_folds)(A)(B) times.
+In this specific call, we have k_folds=3, A=3, B=20, so we get 180 times.
 
 Write your answer using **markdown** and $\LaTeX$:
 ```python
