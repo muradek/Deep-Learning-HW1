@@ -130,6 +130,7 @@ class LinearClassifier(object):
             total_correct = 0
             average_loss = 0
 
+            # loop over all samples (x) and all ground labels (y) in the validation dataset
             for x, y in dl_valid:
                 y_pred, class_scores = self.predict(x)
                 average_loss += (loss_fn.loss(x, y, class_scores, y_pred)
@@ -140,7 +141,6 @@ class LinearClassifier(object):
             valid_res.loss.append(average_loss / len(dl_valid))
             valid_res.accuracy.append(total_correct / len(dl_valid))
 
-            # raise NotImplementedError()
             # ========================
             print(".", end="")
 

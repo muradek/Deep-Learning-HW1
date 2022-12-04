@@ -104,45 +104,52 @@ An equation: $e^{i\pi} -1 = 0$
 part3_q1 = r"""
 **Your answer:**
 
-The selection of $\delta > 0$ is arbitrary for the SVM loss function because delta the hyper-parameter representing the\
-margin for score difference between the true and all other classes can be directly effected by the hyper-paramater \
-$\lambda$. $\lambda$ the "weights decay"\regularization parameter controls the magnitude of the weights so as we limit \
-this magnitude we are also limiting the difference in scores between the classes $\delta$. Therefore, we can safely set\
- $\delta$ arbitrarily and have $\lamda$ compensate. The two hyper-parameters control the same tradeoff and controlling \
-the weights magnitude may prove to be more convenient in some cases.      
-
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+**1:** The selection of $\Delta > 0$ is arbitrary for the SVM loss function because delta the hyper-parameter 
+representing the margin for score difference between the true and all other classes can be directly effected by the 
+hyper-paramater $\lambda$. The "weights decay"\regularization  $\lambda$ parameter controls the magnitude of the 
+weights so as we limit this magnitude we are also limiting the difference in scores between the classes $\Delta$. 
+Therefore, we can safely set $\Delta$ arbitrarily and have $\lambda$ compensate. The two hyper-parameters control the 
+same tradeoff and controlling the weights magnitude may prove to be more convenient in some cases.      
 
 """
 
 part3_q2 = r"""
 **Your answer:**
 
+**2.1:** When viewing the images we can roughly see the outlines of the digit characters. We can assume the classifier 
+is learning the pixels and where they are white or black. Ultimately giving the sample a score based of how close it is 
+to each class\digit. The classifier learn the features which are the pixels and gives a specific weight to each one and 
+based off how often this pixel was white in the training set. The classification errors may be explained by the several 
+factors like, how there are different styles to write each digit, how some digits are similar, how the training samples 
+are not all the same size, centered or aligned the same.  For example we can see how the digit 4 was mistaken for 9 due 
+to an elongated stroke.
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+**2.2:** 
+The similarities are between the interpretation: 
+- The models both regard the same features, in this case the pixels. The model is built around pixel location and color.
+ 
+The differences are:
+- The KNN model predicts the classification by comparing to the closest training samples to the sample we are trying to
+predict, while in the Linear Classifier model we build a general representation for each of the C class options and
+ultimately predict the classification based on which class is most similar and not specific samples. 
+
+-In the Linear classifier we have a much smaller memory stamp due to not having to save the whole training set on the 
+memory while predicting future classes. 
 
 """
 
 part3_q3 = r"""
 **Your answer:**
 
+**3.1:** We think that the learning rate we choose is good. We can see how in the first 5 or so epochs the accuracy 
+function has a general trend of improvement btu with local falls. This is an important element because we want to avoid 
+local minimals. The accuracy graph begins to flattens out after epoch 5 thus showing some sort of convergence to a 
+minimum this is important because if we were to choose a learning rate to large we might always "bounce" in and out of 
+minimums. On the other hand we can notice that our step if large enough to actually reach a minimum, choosing too small 
+of a step would most likely cause the model to not reach adequate results.
 
-Write your answer using **markdown** and $\LaTeX$:
-```python
-# A code block
-a = 2
-```
-An equation: $e^{i\pi} -1 = 0$
+**3.2:** Based off the graph we can concur that the model is slightly overfitted to the training set. By examining the 
+graph we can notice that the accuracy of the training set is better then that of the validation set by a small margin.
 
 """
 
